@@ -1,3 +1,5 @@
+var inquirer = require('inquirer');
+
 // Require BasicCard for testing
 var BasicCard = require('./BasicCard');
 
@@ -17,22 +19,21 @@ var ClozeCard = function (text, cloze) {
     };
 
 };
-// Testing the basic card constuctor
-var firstPresident = new BasicCard ("Who was the first President?", "George Washington");
-console.log(firstPresident.front);
-console.log(firstPresident.back);
 
-// Testing the cloze card constructor
-var firstPresidentCloze = new ClozeCard ("George Washington was the first President.", "George Washington");
-console.log(firstPresidentCloze.cloze);
-console.log(firstPresidentCloze.partial());
-console.log(firstPresidentCloze.fullText);
+// var firstCloze = new ClozeCard ("The Civil War ended in 1865.", "1865");
 
-// Testing cloze card with error
-var errorPresidentcloze = new ClozeCard ("Jon Snow is actually a Targaryen.", "Targaryan");
-console.log(errorPresidentcloze.cloze);
-console.log(errorPresidentcloze.partial());
-console.log(errorPresidentcloze.fullText);
+//     inquirer.prompt([
+//         {
+//             name:"firstCloze",
+//             message: "Question: " + firstCloze.partial()
+//         }
+//     ]).then(function(input) {
+//         if(input.firstCloze === firstCloze.cloze) {
+//             console.log("You are correct!");
+//         } else (
+//             console.log("Incorrect... the correct answer is: " + firstCloze.cloze)
+//         )
+//     });
 
 // Export module to use in app.js
 module.exports = ClozeCard;
