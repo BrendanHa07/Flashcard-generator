@@ -1,7 +1,6 @@
 var inquirer = require('inquirer');
-
-// Require BasicCard for testing
-var BasicCard = require('./BasicCard');
+var questions = [];
+var count = 0;
 
 // Create ClozeCard constructor
 var ClozeCard = function (text, cloze) {
@@ -20,20 +19,30 @@ var ClozeCard = function (text, cloze) {
 
 };
 
-// var firstCloze = new ClozeCard ("The Civil War ended in 1865.", "1865");
+var firstQuestion = new ClozeCard ("The Enola Gay was the bomber that dropped the first atomic bomb.", "Enola Gay");
+var secondQuestion = new ClozeCard ("Franklin D. Roosevelt was the President during WWII.", "Franklin D. Roosevelt");
 
-//     inquirer.prompt([
-//         {
-//             name:"firstCloze",
-//             message: "Question: " + firstCloze.partial()
-//         }
-//     ]).then(function(input) {
-//         if(input.firstCloze === firstCloze.cloze) {
-//             console.log("You are correct!");
-//         } else (
-//             console.log("Incorrect... the correct answer is: " + firstCloze.cloze)
-//         )
-//     });
+questions.push(firstQuestion);
+questions.push(secondQuestion);
 
-// Export module to use in app.js
-module.exports = ClozeCard;
+var askQuestion = function () {
+    if (count < questions.length) {
+        inquirer.prompt([
+            {
+                name:"question",
+                message: "Question: " + questions[count].partial()
+            }
+        ]).then(function(answer) {
+            if(answer.question === questions[count].cloze) {
+                console.log("You are correct!");
+            } else {
+                console.log("Incorrect! The correct answer is: " + questions[count].cloze);
+            };
+            count++
+            askQuestion();
+        });
+    } else {
+        console.log("No More Questions!");
+    };
+};
+askQuestion();
